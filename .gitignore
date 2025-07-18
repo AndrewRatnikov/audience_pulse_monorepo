@@ -1,2 +1,24 @@
 .vscode
 .DS_Store
+
+# Python
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/venv/
+backend/venv.bak/
+backend/venv3/
+backend/venv3.bak/
+backend/.venv/
+backend/.venv.bak/
+backend/.mypy_cache/
+backend/.pytest_cache/
+backend/.coverage
+backend/.tox/
+backend/.coverage.*
+backend/.hypothesis/
+backend/.mypy_cache/
+backend/.pytest_cache/
+backend/.ruff_cache/
+backend/.ruff_cache/
