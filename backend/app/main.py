@@ -1,15 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import logging
 from pydantic import BaseModel
 from .config import settings
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+from .services.analyzer import analyze_link
+from .logger import logger
 
 app = FastAPI(
   title="Audience Pulse Backend API (MVP)",
@@ -35,6 +29,8 @@ class AnalyzeRequestModel(BaseModel):
     link: str
 
 @app.post("/analyze")
-async def analyze_placeholder(requested_data: AnalyzeRequestModel):
+async def analyze(requested_data: AnalyzeRequestModel):
     logger.info(f"Received analysis request for link: {requested_data.link}")
-    return {"status": "Analysis request received (placeholder)", "link": requested_data.link}
+    response = analyze_link(requested_data.link)
+    # return {"status": "Analysis request received", "link": requested_data.link}
+    return response
