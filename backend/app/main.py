@@ -32,5 +32,4 @@ class AnalyzeRequestModel(BaseModel):
 async def analyze(requested_data: AnalyzeRequestModel):
     logger.info(f"Received analysis request for link: {requested_data.link}")
     response = analyze_link(requested_data.link)
-    # return {"status": "Analysis request received", "link": requested_data.link}
     return response
