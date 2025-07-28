@@ -2,7 +2,7 @@
 .DS_Store
 
 # Python
-backend/app/__pycache__/
+backend/**/__pycache__/
 backend/venv/
 backend/venv.bak/
 backend/.venv/
