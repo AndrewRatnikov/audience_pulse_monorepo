@@ -28,6 +28,8 @@ def get_youtube_data(url: str):
         elif path.startswith('/@'):
             channel_name = path[2:]
             logger.info(f"Found YouTube channel name: {channel_name}")
+            # get channel id - curl "https://www.googleapis.com/youtube/v3/search?part=snippet&q=ActionAdventureTwins&type=channel&maxResults=1&key={KEY}"
+            # get channel statistics - curl "https://www.googleapis.com/youtube/v3/search?part=snippet&q=MyCustomChannelName&type=channel&maxResults=1&key={KEY}"
             # Placeholder for API call using channel_name
             return {"channel_name": channel_name, "url_type": "channel"}
         elif path.startswith('/channel/'):
