@@ -573,8 +573,8 @@ class YouTubeFetcher:
             raise YouTubeFetcherError(f"Unexpected error: {str(e)}")
 
     def get_video_data(self, video_link: str) -> Dict[str, Any]:
-        """Enhanced function to fetch video data."""
-        logger.info(f"Starting data fetch for video: {video_link}")
+        """Simplified function to fetch data for a single video and its channel."""
+        logger.info(f"Starting simplified data fetch for video: {video_link}")
         
         try:
             video_id = self._extract_video_id(video_link)
@@ -591,14 +591,21 @@ class YouTubeFetcher:
             if not channel_id:
                 raise YouTubeFetcherError(f"Could not determine channel ID for video {video_id}")
 
-            # Get channel data
-            channel_data = self.get_channel_data(f"https://www.youtube.com/channel/{channel_id}")
+            # Fetch basic channel details
+            channel_response = self._retry_api_call(
+                self.youtube.channels().list,
+                part='snippet,statistics',
+                id=channel_id
+            )
             
-            # Get comments for current video
+            channel_details = channel_response['items'][0] if channel_response.get('items') else None
+
+            # Get comments for the current video
             current_video_comments = self._get_comments_for_video(video_id)
 
             return {
-                **channel_data,
+                "channel_id": channel_id,
+                "channel_details": channel_details,
                 "current_video_details": current_video_details,
                 "current_video_comments": current_video_comments
             }
