@@ -48,7 +48,7 @@ class YouTubeFetcher:
         # Build client with timeout configuration
         self.youtube = self._build_youtube_client()
         self.config = config or FetchConfig()
-        self._cache = {}  # Simple in-memory cache
+        
 
     def _build_youtube_client(self):
         """Build YouTube client with proper timeout configuration."""
@@ -166,11 +166,6 @@ class YouTubeFetcher:
         if not self._validate_url(youtube_link):
             logger.error(f"Invalid YouTube URL: {youtube_link}")
             return None
-            
-        # Check cache first
-        cache_key = f"channel_id:{youtube_link}"
-        if cache_key in self._cache:
-            return self._cache[cache_key]
 
         parsed_url = urlparse(youtube_link)
         path_parts = parsed_url.path.split('/')
@@ -208,10 +203,6 @@ class YouTubeFetcher:
                 
         except Exception as e:
             logger.error(f"Error extracting channel ID from {youtube_link}: {e}")
-            
-        # Cache the result
-        if channel_id:
-            self._cache[cache_key] = channel_id
             logger.info(f"Successfully extracted channel ID: {channel_id}")
         else:
             logger.error(f"Failed to extract channel ID from {youtube_link}")
@@ -618,7 +609,4 @@ class YouTubeFetcher:
             logger.exception(f"Unexpected error for video {video_link}")
             raise YouTubeFetcherError(f"Unexpected error: {str(e)}")
 
-    def clear_cache(self):
-        """Clear the internal cache."""
-        self._cache.clear()
-        logger.info("Cache cleared")
+    
