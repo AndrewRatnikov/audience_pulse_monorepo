@@ -53,7 +53,7 @@ Derived as:
 `(Avg. Interactions per Post or Video) / Current Audience Size`
 
 - **Instagram / Facebook:** Likes + Comments + Shares + Reactions (latest 10–15 posts)
-- **YouTube:** Views + Likes + Comments (latest 5–10 videos)
+- **YouTube:** Views + Likes + Comments (5–10 most popular videos)
 - Displayed as a percentage
 - Platform-specific benchmarks provided (if available)
 
